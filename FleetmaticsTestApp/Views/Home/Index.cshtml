@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Some site</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/app.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2>
+            <span class="logo"><img src="~/img/search-logo.png"></span><span class="hidden-xs">Some Site</span>
+        </h2>
+        <div id="searchPage">
+            <div class="form-search form-inline">
+                <input type="text" id="searchField" class="form-control col-sm-10" placeholder="search">
+            </div>
+            <div style="display: none;" id="searchResultContainer">
+            </div>
+            <div id="searchNoResult" style="display: none;" class="alert alert-warning text-center clear">
+                No items found
+            </div>
+        </div>
+        <div style="display: none;" id="itemPage">
+        </div>
+    </div>
+
+    <div id="loading" style="display: none;">Loading ...</div>
+    
+    <footer role="contentinfo">
+        Artem Shkolovy, 2014
+    </footer>
+
+    @* --JS-- *@
+
+    <script src="~/js/libs/jquery-2.1.1.js"></script>
+    <script src="~/js/libs/underscore.js"></script>
+    <script src="~/js/libs/backbone.js"></script>
+    <script src="~/js/app.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            new AppView({ model: new AppModel() });
+        });
+    </script>
+    
+    @* --Templates-- *@
+
+    <script id="itemGridTemplate" type="text/template">
+      <table id="searchResultTable" class="table">
+          <thead>
+            <tr>
+                <th class="col-sm-1"><a data-sortby="media_type" data-desc="{{ sortBy == 'media_type' ? desc : 'false' }}" href="javascript:void(0)">Media</a></th>
+                <th><a data-sortby="resource_type" data-desc="{{ sortBy == 'resource_type' ? desc : 'false' }}" href="javascript:void(0)">Resource Type</a></th>
+                <th><a data-sortby="language" data-desc="{{ sortBy == 'language' ? desc : 'false' }}" href="javascript:void(0)">Language</a></th>
+                <th><a data-sortby="display_title" data-desc="{{ sortBy == 'display_title' ? desc : 'false' }}" href="javascript:void(0)">Title</a></th>
+                <th>More</th>
+            </tr>
+          </thead>
+          <tbody>
+        {[ _.each(items, function(item){ ]}
+        {[ var i = item.content.resource; ]}  
+            <tr data-id="{{ i.id }}">
+                <td class="text-center" title="{{ i.media_type }}"><i class="glyphicon {{ item.media_type_css }}"></td>
+                <td>
+                {[ if(i.viewable === "true"){ ]}
+                    <a class="title" href="javascript:void(0)">{{ i.display_title }}</a></td>
+                {[ } else { ]}
+                    {{ i.display_title }}
+                {[ } ]}
+                <td>{{ i.language }}</td>
+                <td>{{ i.resource_type }}</td>
+                <td><a class="more" href="javascript:void(0)"><i class="glyphicon glyphicon-eye-open"></i><span class="hidden-xs"> details...</span></a></td>
+            </tr>
+       {[ }) ]}
+           </tbody>
+       </table>
+        <ul id="pager" class="pager">
+            <li id="previousPage" class="disabled">
+                <a href="javasctipt:void(0)">
+                    <span class="hidden-xs">Previous</span>
+                    <span class="visible-xs"><</span>
+                </a>
+            </li>
+            <li id="nextPage">
+                <a href="javasctipt:void(0)">
+                    <span class="hidden-xs">Next</span>
+                    <span class="visible-xs">></span>
+                </a>
+            </li>
+            <div class="right badge">items found: {{ itemsCount }}</div>
+        </ul>
+    </script>
+
+    <script id="itemTemplate" type="text/template">
+        {[ var i = item.content.resource; ]}
+        <h2>#{{ i.id }} {{ i.display_title }}</h2>
+        <p>
+            <i title="{{ i.media_type }}" class="{{ item.media_type_css }}"></i> <b>language:</b> {{ i.language }},
+            <b>resource type:</b>  {{ i.resource_type }}, <b>category:</b> {{ i.categorization }}
+        </p>   
+        <p>
+             {{ i.meaningful_description }}
+        </p>
+        <p>
+             {{ i.additional_text }}
+        </p> 
+        {[ if(i.standards && i.standards.standard.length > 0){ ]}  
+            <h4>Standard</h4>                
+              <ul>
+                  {[ _.each(i.standards.standard, function(standard){ ]}
+                  <li>{{ standard.id }}  
+                      {{ standard.description }} 
+                  </li>
+                  {[ }) ]}
+              </ul>
+          {[ } ]}      
+          <a id="goToSearchBtn" href="javascript:void(0)"><i class="glyphicon glyphicon-search"></i> Back to search results</a>        
+    </script>
+</body>
+</html>

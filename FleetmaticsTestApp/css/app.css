@@ -1,0 +1,106 @@
+body {
+    color: #777;
+}
+
+.logo {
+    text-align: center;
+    display: block;
+}
+
+    .logo img {
+        width: 60px;
+    }
+
+.table tbody tr:hover {
+    background: #eee;
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 43%;
+    padding: 10px 30px;
+    background: #f5ff80;
+    font-size: 0.8em;
+}
+
+.table thead tr {
+    background: #def3fe;
+}
+
+.table thead th {
+    white-space: nowrap;
+    /*max-width: 3.35em;
+overflow: hidden;
+text-overflow: ellipsis;*/
+}
+
+.container {
+    min-width: 488px;
+}
+
+#searchField {
+    padding-left: 26px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-search {
+    position: relative;
+}
+
+    .form-search:before {
+        display: block;
+        width: 14px;
+        height: 14px;
+        content: "\e003";
+        font-family: 'Glyphicons Halflings';
+        background-position: -48px 0;
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        opacity: .5;
+        z-index: 1000;
+    }
+
+.clear {
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+footer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    font-size: 0.7em;
+}
+
+.text-highlight {
+    background:#fcff83
+}
+
+
+@media (max-width: 767px) {
+    .table th {
+        font-size: 0.8em;
+    }
+}
+
+@media (min-width: 767px) {
+    .logo img {
+        width: 30px;
+    }
+
+    .logo {
+        display: inline;
+    }
+}
