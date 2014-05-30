@@ -81,28 +81,24 @@
        {[ }) ]}
            </tbody>
        </table>
-        <ul id="pager" class="pager">
-            <li id="previousPage" class="disabled">
-                <a href="javasctipt:void(0)">
+        <div id="pager" class="pager">
+            <button id="previousPage" class="btn btn-default">
                     <span class="hidden-xs">Previous</span>
                     <span class="visible-xs"><</span>
-                </a>
-            </li>
-            <li id="nextPage">
-                <a href="javasctipt:void(0)">
+            </button>
+            <button class="btn btn-default" id="nextPage">
                     <span class="hidden-xs">Next</span>
                     <span class="visible-xs">></span>
-                </a>
-            </li>
+            </button>
             <div class="right badge">items found: {{ itemsCount }}</div>
-        </ul>
+        </div>
     </script>
 
     <script id="itemTemplate" type="text/template">
         {[ var i = item.content.resource; ]}
         <h2>#{{ i.id }} {{ i.display_title }}</h2>
         <p>
-            <i title="{{ i.media_type }}" class="{{ item.media_type_css }}"></i> <b>language:</b> {{ i.language }},
+            <i title="{{ i.media_type }}" class="glyphicon {{ item.media_type_css }}"></i> <b>language:</b> {{ i.language }},
             <b>resource type:</b>  {{ i.resource_type }}, <b>category:</b> {{ i.categorization }}
         </p>   
         <p>

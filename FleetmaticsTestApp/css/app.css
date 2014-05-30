@@ -2,6 +2,10 @@ body {
     color: #777;
 }
 
+::-ms-clear {
+    display: none;
+ }
+
 .logo {
     text-align: center;
     display: block;

@@ -165,20 +165,16 @@ var GridItemsView = Backbone.View.extend({
     },
     pagerPrepare: function () {
         this.$el.find('#pager').toggleClass('hidden', this.model.length < this.paging.ITEMS_ON_PAGE);
-        this.$el.find('#nextPage').toggleClass('disabled', this.paging.currentPage + 1 >= this.paging.pages);
-        this.$el.find('#previousPage').toggleClass('disabled', this.paging.currentPage == 0);
+        this.$el.find('#nextPage').prop('disabled', this.paging.currentPage + 1 >= this.paging.pages);
+        this.$el.find('#previousPage').prop('disabled', this.paging.currentPage == 0);
     },
     nextPage: function () {
-        if (this.paging.currentPage + 1 < this.paging.pages) {
-            this.paging.currentPage++;
-            this.render();
-        }
+        this.paging.currentPage++;
+        this.render();
     },
     previousPage: function () {
-        if (this.paging.currentPage != 0) {
-            this.paging.currentPage--;
-            this.render();
-        }
+        this.paging.currentPage--;
+        this.render();
     }
 });
 
@@ -206,7 +202,7 @@ var AppView = Backbone.View.extend({
                 pageHelper.loading.show();
                 $searchResultContainer.css('opacity', 0.5);
 
-                //make it loading 1 second :)
+                //make it loading 1 second (client server timing simulation) :)
                 setTimeout(function () {
                     $.getJSON("/data/Content.json", function (json) {
                         var items = json.response.results.result;
