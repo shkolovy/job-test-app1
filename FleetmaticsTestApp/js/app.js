@@ -68,7 +68,7 @@ var ItemView = Backbone.View.extend({
     },
     render: function () {
         this.$el.html(_.template($('#itemTemplate').html(), { item: this.model.toJSON() }));
-        
+
         return this;
     },
     initialize: function () {
@@ -110,14 +110,14 @@ var GridItemsView = Backbone.View.extend({
             desc: !that.model.desc,
             itemsCount: that.model.length
         }));
-        
+
         $.each(that.$el.find('.title'), function (i, el) {
             var $el = $(el);
             $el.html($el.text().replace(regEx, '<span class="text-highlight">' + that.model.searchStr + '</span>'));
         });
 
         that.pagerPrepare();
-        
+
         //to avoid event dublication on re-rendering
         that.$el.undelegate();
         that.delegateEvents();
@@ -189,7 +189,7 @@ var AppView = Backbone.View.extend({
         var $searchResultContainer = $('#searchResultContainer'),
             $searchNoResult = $('#searchNoResult'),
             searchStr = $(e.target).val();
-        
+
         if (this.searchTm) {
             clearTimeout(this.searchTm);
         }
